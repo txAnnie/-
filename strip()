@@ -1,0 +1,18 @@
+strip() 方法用于移除字符串头尾指定的字符（默认为空格）。
+
+格式：
+str.strip([chars]);　　//chars -- 移除字符串头尾指定的字符。
+
+Eg１：
+>>> a='  he llo,   world  !  '
+>>> print(a.strip())
+he llo,   world  !
+
+Eg2:
+>>>a='***hello,*world***'
+>>> print(a.strip('*'))
+hello,*world
+>>> 
+
+
+
