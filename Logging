@@ -1,0 +1,27 @@
+Logging (日志记录)式跟踪某些软件运行时发生事件的一种方法。
+共有五种级别的Ｌｏｇｇｉｎｇ，依次是DEBUG<INFO<WARING<ERROR<CRITICSL,默认级别是ＷＡＲＮＩＮＧ，意思是，只有这个级别及这个级别以上的事件才会被纪录。
+
+Eg1:
+>>>import logging
+>>>logging.warning('Watch out!')
+>>>logging.info('I told you so')
+
+WARNING:root:Watch out!
+
+将ｌｏｇｇｉｎｇ输出到文件中：
+
+Eg2:
+import logging
+logging.basicConfig(filename='example.log',level=logging.DEBUG)    //设置基本信息，如：输出到的文件名，ｌｏｇｇｉｎｇ级别等
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+
+DEBUG:root:This message should go to the log file
+INFO:root:So should this
+WARNING:root:And this, too
+
+如果你想要在命令行设置ｌｏｇｇｉｎｇ级别选项如：--log=INFO,那么你可以添加getattr(logging,loglevel.upper())
+
+如果你想按每一模块组织你的日志，可以添加ｌｏｇｇｉｎｇ.getLogger(__name__)
+ｐｐｒｉｎｔ.pformat()　以ｓｔｒｉｎｇ类型返回以个对象的格式化表示
