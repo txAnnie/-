@@ -1,0 +1,94 @@
+１：位置参数
+
+
+２：默认参数：
+
+　定义函数时若给定一些参数的默认值，那么调用该函数时可以不再提供已有默认值的参数，自动选择默认值；若含有多个默认值时，不按顺序提供部分默认参数时，将参数名写上进行参数赋值。
+Ｅｇ：
+ def enroll(name, gender, age=6, city='Beijing'):
+    print('name:', name)
+    print('gender:', gender)
+    print('age:', age)
+    print('city:', city)
+    
+>>>enroll('Adam', 'M', city='Tianjin')
+
+
+３：可变参数：
+　使用 '*×××' 将参数改为可变参数，直接传递若干参数，相当于传递一个ｌｉｓｔ或ｔｕｐｌｅ
+Eg:
+原：
+def calc(numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+
+但是调用的时候，需要先组装出一个list或tuple：
+
+>>> calc([1, 2, 3])
+14
+>>> calc((1, 3, 5, 7))
+84
+
+改为可变参数后：
+def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+
+>>> calc(1, 2)
+5
+>>> calc()
+0
+或直接传入ｌｉｓｔ或ｔｕｐｌｅ：
+>>> nums = [1, 2, 3]
+>>> calc(*nums)
+14
+
+
+4:关键字参数：
+　使用 '**×××' 将参数改为可变参数，直接传递若干参数，相当于传递一个ｄｉｃｔ（类似于可变参数）
+Eg:
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+    
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+
+５：命名关键字参数:
+　相当于检查传入的参数名字师傅符合要求，和关键字参数**kw不同，命名关键字参数需要一个特殊分隔符*，*后面的参数被视为命名关键字参数。。
+Eg:
+def person(name, age, *, city, job):　　　//其中，'*'后的ｃｉｔｙ和job为关键字
+    print(name, age, city, job)
+    
+>>> person('Jack', 24, city='Beijing', job='Engineer')
+Jack 24 Beijing Engineer
+(传入时必须传入关键字，如果没有传入关键字，则报错)
+
+如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了：
+def person(name, age, *args, city, job):
+    print(name, age, args, city, job)
+    
+要特别注意，如果没有可变参数，就必须加一个*作为特殊分隔符。如果缺少*，Python解释器将无法识别位置参数和命名关键字参数：
+
+
+６：参数组合：
+以上的彀中参数方法可以混合使用，除此之外，神奇的是通过一个tuple和dict，你也可以调用上述函数
+Eg:
+def f1(a, b, c=0, *args, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+
+def f2(a, b, c=0, *, d, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
+>>> args = (1, 2, 3, 4)
+>>> kw = {'d': 99, 'x': '#'}
+>>> f1(*args, **kw)
+a = 1 b = 2 c = 3 args = (4,) kw = {'d': 99, 'x': '#'}
+>>> args = (1, 2, 3)
+>>> kw = {'d': 88, 'x': '#'}
+>>> f2(*args, **kw)
+a = 1 b = 2 c = 3 d = 88 kw = {'x': '#'}
+
+所以，对于任意函数，都可以通过类似func(*args, **kw)的形式调用它，无论它的参数是如何定义的。
