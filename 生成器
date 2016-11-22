@@ -1,0 +1,37 @@
+不断推算后续的元素：生成器
+和列表相比，这样就不必创建完整的list，从而节省大量的空间。
+
+１．只要把一个列表生成式的[]改成()，就创建了一个generator：
+>>> g = (x * x for x in range(10))
+>>> g
+<generator object <genexpr> at 0x1022ef630>
+如果要一个一个打印出来，可以通过next()函数获得generator的下一个返回值：
+
+>>> next(g)
+0
+>>> next(g)
+1
+或者用for循环：（因为g也是可迭代的）
+>>> g = (x * x for x in range(10))
+>>> for n in g:
+...     print(n)
+... 
+0
+1
+4
+9
+
+２．推算的算法比较复杂，用类似列表生成式的for循环无法实现的时候，可以用函数来实现。
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b　//遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+
+这就是定义generator的另一种方法。如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator：
+
+>>> f = fib(6)
+>>> f
+<generator object fib at 0x104feaaa0>
