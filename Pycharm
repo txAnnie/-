@@ -1,1 +1,7 @@
-1. 进入函数：按住ctrl,同时点击函数名
+1. 进入函数：
+    按住ctrl,同时点击函数名
+2.用pycharm传入参数：
+    Run/Debug Configurations->Configurations->Script Parames
+    和vs类似，都不用输入程序名字，直接输入参数即可。
+    如，在命令行中需要输入 python a.py b c d
+    则在上述地方直接输入 b c d就行了
